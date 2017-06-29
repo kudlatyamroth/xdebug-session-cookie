@@ -4,7 +4,8 @@
     "version": "0.9",
     
     "description": "Adds cookie that enables XDEBUG SESSION for php xdebug, need to add preference window and use for XDEBUG_TRACE and XDEBUG_PROFILE cookies",
-    
+    "homepage_url": "https://github.com/kudlatyamroth/xdebug-session-cookie",
+
     "icons": {
         "64": "icons/bug-green-64.png",
         "128": "icons/bug-green-128.png"
