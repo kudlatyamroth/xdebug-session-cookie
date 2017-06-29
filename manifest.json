@@ -1,0 +1,42 @@
+{
+    "manifest_version": 2,
+    "name": "Xdebug Session Cookie",
+    "version": "0.9",
+    
+    "description": "Adds cookie that enables XDEBUG SESSION for php xdebug, need to add preference window and use for XDEBUG_TRACE and XDEBUG_PROFILE cookies",
+    
+    "icons": {
+        "64": "icons/bug-green-64.png",
+        "128": "icons/bug-green-128.png"
+    },
+    
+    "permissions": [
+        "tabs",
+        "cookies",
+        "storage",
+        "<all_urls>"
+    ],
+    
+    "browser_action": {
+        "default_icon": {
+            "64": "icons/bug-green-64.png",
+            "128": "icons/bug-green-128.png"
+        },
+        "default_title": "xDEBUG Session (off)"
+    },
+    
+    "options_ui": {
+        "page": "options.html",
+        "browser_style": true
+    },
+    
+    "applications": {
+        "gecko": {
+            "id": "xdebug-session-cookie@kudlatyamroth.eu"
+        }
+    },
+    
+    "background": {
+        "scripts": ["xdebug.js"]
+    }
+}
