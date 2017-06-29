@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
     "name": "Xdebug Session Cookie",
-    "version": "0.9",
+    "version": "0.10",
     
-    "description": "Adds cookie that enables XDEBUG SESSION for php xdebug, need to add preference window and use for XDEBUG_TRACE and XDEBUG_PROFILE cookies",
+    "description": "Adds cookie that enables XDEBUG SESSION for php xdebug.",
     "homepage_url": "https://github.com/kudlatyamroth/xdebug-session-cookie",
 
     "icons": {
