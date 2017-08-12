@@ -1,0 +1,24 @@
+:root {
+    --gutter-size: 10px;
+    --input-height: 2rem;
+}
+
+.options-form,
+.options-form * {
+    box-sizing: border-box;
+}
+
+.options-form label {
+    margin-right: var(--gutter-size);
+    font-size: 1rem;
+}
+
+.options-form input {
+    margin: 0 var(--gutter-size);
+    height: var(--input-height);
+}
+
+.options-form button {
+    margin: 0 var(--gutter-size);
+    height: var(--input-height);
+}

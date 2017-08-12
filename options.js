@@ -1,15 +1,23 @@
-function saveOptions(e) {
-    browser.storage.sync.set({
+async function saveOptions(e) {
+    let saved = browser.storage.sync.set({
         xdebug_session: document.querySelector("#xdebug_session").value
     });
+    saved.then(showSuccess, showError);
     e.preventDefault();
 }
 
-function restoreOptions() {
-    let gettingItem = browser.storage.sync.get('xdebug_session');
-    gettingItem.then((res) => {
-        document.querySelector("#xdebug_session").value = res.xdebug_session || 'phpstorm';
-    });
+async function restoreOptions() {
+    let sessionKey = await browser.storage.sync.get('xdebug_session');
+
+    document.querySelector("#xdebug_session").value = sessionKey.xdebug_session || 'phpstorm';
+}
+
+function showSuccess() {
+    console.log('saved succesfully');
+}
+
+function showError() {
+    console.log('there were some errors');
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
