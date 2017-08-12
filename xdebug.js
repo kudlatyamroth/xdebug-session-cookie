@@ -1,5 +1,5 @@
-var cookieName = 'XDEBUG_SESSION';
-var currentTab;
+let cookieName = 'XDEBUG_SESSION';
+let currentTab;
 
 function updateIcon() {
     getCookie().then((cookie) => {
@@ -29,17 +29,13 @@ function toggleCookie() {
             });
             updateIcon();
         } else {
-            var d = new Date();
-            d.setTime(d.getTime() + (2*24*60*60*1000));
-            
-            var gettingSessionKey = browser.storage.sync.get('xdebug_session');
+            let gettingSessionKey = browser.storage.sync.get('xdebug_session');
             gettingSessionKey.then((res) => {
                 browser.cookies.set({
                     url: currentTab.url,
                     name: cookieName,
                     value: res.xdebug_session || 'phpstorm',
-                    path: "/",
-                    expirationDate: d.getTime()/1000
+                    path: "/"
                 });
                 updateIcon();
             });
@@ -54,22 +50,22 @@ function getCookie() {
     });
 }
 
-browser.browserAction.onClicked.addListener(toggleCookie);
-
-function updateActiveTab(tabs) {
+function updateActiveTab() {
     function updateTab(tabs) {
         if (tabs[0]) {
             currentTab = tabs[0];
             updateIcon();
         }
     }
-    
-    var gettingActiveTab = browser.tabs.query({active: true, currentWindow: true});
+
+    let gettingActiveTab = browser.tabs.query({active: true, currentWindow: true});
     gettingActiveTab.then(updateTab);
 }
 
+updateActiveTab();
+
+browser.browserAction.onClicked.addListener(toggleCookie);
 browser.tabs.onUpdated.addListener(updateActiveTab);
 browser.tabs.onActivated.addListener(updateActiveTab);
 browser.windows.onFocusChanged.addListener(updateActiveTab);
 
-updateActiveTab();

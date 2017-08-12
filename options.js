@@ -6,7 +6,7 @@ function saveOptions(e) {
 }
 
 function restoreOptions() {
-    var gettingItem = browser.storage.sync.get('xdebug_session');
+    let gettingItem = browser.storage.sync.get('xdebug_session');
     gettingItem.then((res) => {
         document.querySelector("#xdebug_session").value = res.xdebug_session || 'phpstorm';
     });
