@@ -1,6 +1,7 @@
 :root {
     --gutter-size: 10px;
     --input-height: 2rem;
+    --label-width: 7rem;
 }
 
 .options-form,
@@ -12,18 +13,39 @@
     margin-bottom: 15px;
 }
 
-.options-form label {
-    margin-right: var(--gutter-size);
-    font-size: 1rem;
+.form-row {
+    display: flex;
+    align-items: center;
 }
 
-.options-form input {
+.form-row + .form-row {
+    margin-top: var(--gutter-size);
+}
+
+.form-row > .input-label {
+    margin-right: var(--gutter-size);
+    display: inline-block;
+    font-size: 1rem;
+    width: var(--label-width);
+    text-align: right;
+}
+
+.form-row > input {
     margin: 0 var(--gutter-size);
     height: var(--input-height);
 }
 
-.options-form button {
-    margin: 0 var(--gutter-size);
+.form-row > button {
+    margin: var(--gutter-size) var(--gutter-size) 0 calc(var(--label-width) + 2 * var(--gutter-size));
+    height: var(--input-height);
+}
+
+input[type=radio],
+.xdebug-session-icon {
+    vertical-align: middle;
+}
+
+.xdebug-session-icon {
     height: var(--input-height);
 }
 

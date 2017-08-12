@@ -7,9 +7,51 @@
     </head>
 <body>
     <form class="options-form">
-        <label>IDE KEY</label>
-        <input type="text" id="xdebug_session">
-        <button type="submit">Save</button>
+        <div class="form-row">
+            <label class="input-label">IDE KEY</label>
+            <input type="text" class="xdebug_session">
+        </div>
+        <div class="form-row">
+            <label class="input-label">Off icon color</label>
+            <label>
+                <input type="radio" name="off_color" class="xdebug-session-off-color" value="red">
+                <img class="xdebug-session-icon" src="icons/bug-red-64.png" alt="red">
+            </label>
+            <label>
+                <input type="radio" name="off_color" class="xdebug-session-off-color" value="green">
+                <img class="xdebug-session-icon" src="icons/bug-green-64.png" alt="green">
+            </label>
+            <label>
+                <input type="radio" name="off_color" class="xdebug-session-off-color" value="light">
+                <img class="xdebug-session-icon" src="icons/bug-light-64.png" alt="light">
+            </label>
+            <label>
+                <input type="radio" name="off_color" class="xdebug-session-off-color" value="dark">
+                <img class="xdebug-session-icon" src="icons/bug-dark-64.png" alt="dark">
+            </label>
+        </div>
+        <div class="form-row">
+            <label class="input-label">On icon color</label>
+            <label>
+                <input type="radio" name="on_color" class="xdebug-session-on-color" value="red">
+                <img class="xdebug-session-icon" src="icons/bug-red-64.png" alt="red">
+            </label>
+            <label>
+                <input type="radio" name="on_color" class="xdebug-session-on-color" value="green">
+                <img class="xdebug-session-icon" src="icons/bug-green-64.png" alt="green">
+            </label>
+            <label>
+                <input type="radio" name="on_color" class="xdebug-session-on-color" value="light">
+                <img class="xdebug-session-icon" src="icons/bug-light-64.png" alt="light">
+            </label>
+            <label>
+                <input type="radio" name="on_color" class="xdebug-session-on-color" value="dark">
+                <img class="xdebug-session-icon" src="icons/bug-dark-64.png" alt="dark">
+            </label>
+        </div>
+        <div class="form-row">
+            <button type="submit">Save</button>
+        </div>
     </form>
 
     <div class="message-container">
