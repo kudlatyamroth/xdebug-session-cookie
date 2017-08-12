@@ -8,6 +8,10 @@
     box-sizing: border-box;
 }
 
+.options-form {
+    margin-bottom: 15px;
+}
+
 .options-form label {
     margin-right: var(--gutter-size);
     font-size: 1rem;
@@ -21,4 +25,39 @@
 .options-form button {
     margin: 0 var(--gutter-size);
     height: var(--input-height);
+}
+
+.message-container {
+    position: relative;
+    height: 3.1rem;
+}
+
+.message {
+    border-radius: 3px;
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s;
+}
+
+.saved-successfully {
+    background-color: #16a085;
+}
+
+.saved-error {
+    background-color: #c0392b;
+}
+
+.is-visible {
+    opacity: 1;
+    z-index: 2;
 }
