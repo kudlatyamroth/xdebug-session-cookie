@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Xdebug Session Cookie",
-    "version": "0.10",
+    "version": "1.0",
 
     "description": "Adds cookie that enables XDEBUG SESSION for php xdebug.",
     "homepage_url": "https://github.com/kudlatyamroth/xdebug-session-cookie",
