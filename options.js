@@ -13,7 +13,12 @@ async function saveOptions(e) {
 }
 
 async function restoreOptions() {
-    let sessionKey = await browser.storage.sync.get('xdebug_session');
+    const items = [
+        'xdebug_session',
+        'xdebug_session_on_color',
+        'xdebug_session_off_color'
+    ];
+    let sessionKey = await browser.storage.sync.get(items);
 
     document.querySelector(".xdebug_session").value = sessionKey.xdebug_session || 'phpstorm';
 

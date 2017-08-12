@@ -1,56 +1,69 @@
 let cookieName = 'XDEBUG_SESSION';
 let currentTab;
 
-function updateIcon() {
-    getCookie().then((cookie) => {
-        browser.browserAction.setIcon({
-            path: cookie ? {
-                "64": "icons/bug-red-64.png",
-                "128": "icons/bug-red-128.png"
-            } : {
-                "64": "icons/bug-green-64.png",
-                "128": "icons/bug-green-128.png"
-            },
-            tabId: currentTab.id
-        });
-        browser.browserAction.setTitle({
-            title: cookie ? 'xDEBUG Session (on)' : 'xDEBUG Session (off)',
-            tabId: currentTab.id
-        });
+async function updateIcon() {
+    let cookie = await getCookie();
+    let icons = await getIcons(cookie);
+
+    browser.browserAction.setIcon({
+        path: icons,
+        tabId: currentTab.id
+    });
+    browser.browserAction.setTitle({
+        title: cookie ? 'xDEBUG Session (on)' : 'xDEBUG Session (off)',
+        tabId: currentTab.id
     });
 }
 
-function toggleCookie() {
-    getCookie().then((cookie) => {
-        if (cookie) {
-            browser.cookies.remove({
-                url: currentTab.url,
-                name: cookieName
-            });
-            updateIcon();
-        } else {
-            let gettingSessionKey = browser.storage.sync.get('xdebug_session');
-            gettingSessionKey.then((res) => {
-                browser.cookies.set({
-                    url: currentTab.url,
-                    name: cookieName,
-                    value: res.xdebug_session || 'phpstorm',
-                    path: "/"
-                });
-                updateIcon();
-            });
-        }
+async function toggleCookie() {
+    let cookie = await getCookie();
+
+    if (cookie) {
+        browser.cookies.remove({
+            url: currentTab.url,
+            name: cookieName
+        });
+        updateIcon();
+        return null;
+    }
+
+    let config = await browser.storage.sync.get('xdebug_session');
+
+    browser.cookies.set({
+        url: currentTab.url,
+        name: cookieName,
+        value: config.xdebug_session || 'phpstorm',
+        path: "/"
     });
+    updateIcon();
 }
 
-function getCookie() {
+async function getIcons(cookie) {
+    let state = 'xdebug_session_off_color';
+    let stateColor = 'light';
+    if (cookie) {
+        state = 'xdebug_session_on_color';
+        stateColor = 'red';
+    }
+    let config = await browser.storage.sync.get(state);
+    if (config[state]) {
+        stateColor = config[state];
+    }
+
+    return {
+        "64": "icons/bug-"+ stateColor +"-64.png",
+        "128": "icons/bug-"+ stateColor +"-128.png"
+    }
+}
+
+async function getCookie() {
     return browser.cookies.get({
         url: currentTab.url,
         name: cookieName
     });
 }
 
-function updateActiveTab() {
+async function updateActiveTab() {
     function updateTab(tabs) {
         if (tabs[0]) {
             currentTab = tabs[0];
@@ -58,8 +71,8 @@ function updateActiveTab() {
         }
     }
 
-    let gettingActiveTab = browser.tabs.query({active: true, currentWindow: true});
-    gettingActiveTab.then(updateTab);
+    let tabs = await browser.tabs.query({active: true, currentWindow: true});
+    updateTab(tabs);
 }
 
 updateActiveTab();
