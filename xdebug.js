@@ -20,7 +20,7 @@ async function toggleCookie() {
 
     if (cookie) {
         browser.cookies.remove({
-            url: currentTab.url,
+            url: currentTab.url.replace(/:{1}[0-9]{1}\d*/, ''),
             name: cookieName
         });
         updateIcon();
@@ -51,14 +51,14 @@ async function getIcons(cookie) {
     }
 
     return {
-        "64": "icons/bug-"+ stateColor +"-64.png",
-        "128": "icons/bug-"+ stateColor +"-128.png"
+        "64": "icons/bug-" + stateColor + "-64.png",
+        "128": "icons/bug-" + stateColor + "-128.png"
     }
 }
 
 async function getCookie() {
     return browser.cookies.get({
-        url: currentTab.url,
+        url: currentTab.url.replace(/:{1}[0-9]{1}\d*/, ''),
         name: cookieName
     });
 }
