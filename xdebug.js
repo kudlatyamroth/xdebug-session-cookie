@@ -17,23 +17,25 @@ async function updateIcon() {
 
 async function toggleCookie() {
     let cookie = await getCookie();
+    let currentUrl = currentTab.url;
 
     if (cookie) {
         browser.cookies.remove({
-            url: currentTab.url.replace(/:{1}[0-9]{1}\d*/, ''),
-            name: cookieName
+            url: currentUrl.replace(/:{1}[0-9]{1}\d*/, ''),
+            name: cookieName,
+            storeId: currentTab.cookieStoreId
         });
         updateIcon();
         return null;
     }
 
-    let config = await browser.storage.sync.get('xdebug_session');
-
+    let valueToSet = await getValueToSet();
     browser.cookies.set({
-        url: currentTab.url,
+        url: currentUrl.replace(/:{1}[0-9]{1}\d*/, ''),
         name: cookieName,
-        value: config.xdebug_session || 'phpstorm',
-        path: "/"
+        value: valueToSet,
+        path: "/",
+        storeId: currentTab.cookieStoreId
     });
     updateIcon();
 }
@@ -56,11 +58,27 @@ async function getIcons(cookie) {
     }
 }
 
+async function getValueToSet() {
+    let config = await browser.storage.sync.get('xdebug_session');
+
+    return config.xdebug_session || 'phpstorm';
+}
+
 async function getCookie() {
-    return browser.cookies.get({
-        url: currentTab.url.replace(/:{1}[0-9]{1}\d*/, ''),
-        name: cookieName
+    let currentUrl = currentTab.url;
+    let valueToSet = await getValueToSet();
+
+    let cookie = await browser.cookies.get({
+        url: currentUrl.replace(/:{1}[0-9]{1}\d*/, ''),
+        name: cookieName,
+        storeId: currentTab.cookieStoreId
     });
+
+    if (cookie && cookie.value == valueToSet) {
+        return cookie;
+    }
+
+    return null;
 }
 
 async function updateActiveTab() {
